@@ -38,7 +38,7 @@ public class ASSolver extends PuzzleSolver{
         return instance;
     }
 
-    private void ass(PuzzleState state, int heuristicID, char[] order){
+    private void ass(PuzzleState state, int heuristicID){
 
         // Clears memory
         stateQueue.clear();
@@ -64,50 +64,64 @@ public class ASSolver extends PuzzleSolver{
 
             
             /** CASES */
+            for(int i=0;i<4;i++) {
+                switch (order[i]){
+                    case 'U':
+                        // Move up
+                        newState = PuzzleState.moveUp(state);
+                        // Checks if exist and not already visited
+                        if (newState != null && !stateSet.contains(newState)) {
+                            newState.setValue(calculateValue(heuristicID, newState));
+                            stateSet.add(newState);
+                            stateQueue.add(newState);
+                        }
+                        break;
 
-            // Move up
-            newState = PuzzleState.moveUp(state);
-            // Checks if exist and not already visited
-            if (newState != null && !stateSet.contains(newState)) {
-                newState.setValue(calculateValue(heuristicID, newState));
-                stateSet.add(newState);
-                stateQueue.add(newState);
-            }
+                    case 'D':
 
-            // Move down
-            newState = PuzzleState.moveDown(state);
-            if (newState != null && !stateSet.contains(newState)) {
-                newState.setValue(calculateValue(heuristicID, newState));
-                stateSet.add(newState);
-                stateQueue.add(newState);
-            }
+                        // Move down
+                        newState = PuzzleState.moveDown(state);
+                        if (newState != null && !stateSet.contains(newState)) {
+                            newState.setValue(calculateValue(heuristicID, newState));
+                            stateSet.add(newState);
+                            stateQueue.add(newState);
+                        }
+                        break;
 
-            // Move left
-            newState = PuzzleState.moveLeft(state);
-            if (newState != null && !stateSet.contains(newState)) {
-                newState.setValue(calculateValue(heuristicID, newState));
+                    case 'L':
+                        // Move left
+                        newState = PuzzleState.moveLeft(state);
+                        if (newState != null && !stateSet.contains(newState)) {
+                            newState.setValue(calculateValue(heuristicID, newState));
 
-                stateSet.add(newState);
-                stateQueue.add(newState);
-            }
+                            stateSet.add(newState);
+                            stateQueue.add(newState);
+                        }
 
-            // Move right
-            newState = PuzzleState.moveRight(state);
-            if (newState != null && !stateSet.contains(newState)) {
-                newState.setValue(calculateValue(heuristicID, newState));
-                stateSet.add(newState);
-                stateQueue.add(newState);
-            }
+                        break;
+
+                    case 'R':
+                        // Move right
+                        newState = PuzzleState.moveRight(state);
+                        if (newState != null && !stateSet.contains(newState)) {
+                            newState.setValue(calculateValue(heuristicID, newState));
+                            stateSet.add(newState);
+                            stateQueue.add(newState);
+                        }
+                        break;
+                    default:System.out.println("Switch Case problem");
+                } //switch
+            }//for
         }
     }
 @Override
-    public String solve(Puzzle puzzle, int heuristicID, char[] order) {
+    public String solve(Puzzle puzzle, int heuristicID) {
 
         long startTime = System.currentTimeMillis();    // starts timer
         goal = null;    // goal state is not found at the beginning (null)
 
         PuzzleState state = new PuzzleState(puzzle);    // creates state to begin with
-        ass(state, heuristicID,order); // starts ass search
+        ass(state, heuristicID); // starts ass search
 
         time = System.currentTimeMillis() - startTime;  // calculates time
         // Get the Java runtime

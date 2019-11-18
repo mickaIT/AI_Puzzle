@@ -10,9 +10,36 @@ public abstract class PuzzleSolver {
     protected long time;    // stores time needed to solve
     protected long memory;  // stores memory used to solve
     private static final long MEGABYTE = 1024L * 1024L; // used to translate Bytes to MegaBytes
+    char order[]="RULD".toCharArray();
+    ///////////to tests//
+    String stringOrder="RULD";
+    String availableOrders[]={"LRUD", "LURD","LDUR","LUDR","RLUD","RULD","RDUL","RUDL","DLRU","DULR","DLUR","DRUL","ULRD","URLD","UDRL","ULDR"};
 
-    public  String solve(Puzzle puzzle, int heuristicID){return "Method \"Solve\" from PuzzleSolver not override";};   // solves the puzzle and returns sequence of moves
-    public  String solve(Puzzle puzzle, int heuristicID,char[] order){return "Method \"Solve\" from PuzzleSolver not override";};
+/*    availableOrders[1]=;
+    tab[2]="LURD";tab[3]="LDUR";tab[4]="LUDR";
+    tab[5]="RLUD";tab[6]="RULD";tab[7]="RDUL";tab[8]="RUDL";
+    tab[9]="DLRU";tab[10]="DULR";tab[11]="DLUR";tab[12]="DRUL";
+    tab[13]="ULRD";tab[14]="URLD";tab[15]="UDRL";tab[16]="ULDR";
+    availa*/
+
+            //////////to tests////////////
+    public void changeOrder(String order){
+        if(contains(availableOrders,order)){
+        this.order=order.toCharArray();
+        stringOrder=order;}
+
+        else System.out.println("Wrong order");
+        }
+
+    public static boolean contains(String[] arr, String targetValue) {
+        for (String s: arr) {
+            if (targetValue.equals(s))
+                return true;
+        }
+        return false;
+    }
+
+    public abstract String solve(Puzzle puzzle, int heuristicID);  // solves the puzzle and returns sequence of moves
     // Function used to change bytes to Megabytes
     private static long bytesToMegabytes(long bytes) {
         return bytes / MEGABYTE;
@@ -32,6 +59,7 @@ public abstract class PuzzleSolver {
             // Prints main output
             if (current != null) {
                 System.out.println("This is the state sequence (reverse order): ");
+                System.out.println("Used order:"+stringOrder);
                 System.out.println("Goal State: ");
                 while (true) {
                     // If at top of the tree == initial state

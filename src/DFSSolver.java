@@ -48,35 +48,49 @@ public class DFSSolver extends PuzzleSolver{
                 break;
             }
 
-            /** CASES */
-            // Move up
-            newState = PuzzleState.moveUp(state);
-            // Checks if exist and not already visited
-            if (newState != null && !stateSet.contains(newState)) {
-                stateSet.add(newState);
-                stateStack.push(newState);
-            }
+            for(int i=0;i<4;i++) {
+                switch (order[i]){
+                    case 'U':
+                        // Move up
+                        newState = PuzzleState.moveUp(state);
+                        // Checks if exist and not already visited
+                        if (newState != null && !stateSet.contains(newState)) {
+                            stateSet.add(newState);
+                            stateStack.push(newState);
+                        }
+                        break;
 
-            // Move down
-            newState = PuzzleState.moveDown(state);
-            if (newState != null && !stateSet.contains(newState)) {
-                stateSet.add(newState);
-                stateStack.push(newState);
-            }
+                    case 'D':
 
-            // Move left
-            newState = PuzzleState.moveLeft(state);
-            if (newState != null && !stateSet.contains(newState)) {
-                stateSet.add(newState);
-                stateStack.push(newState);
-            }
+                        // Move down
+                        newState = PuzzleState.moveDown(state);
+                        if (newState != null && !stateSet.contains(newState)) {
+                            stateSet.add(newState);
+                            stateStack.push(newState);
+                        }
+                        break;
 
-            // Move right
-            newState = PuzzleState.moveRight(state);
-            if (newState != null && !stateSet.contains(newState)) {
-                stateSet.add(newState);
-                stateStack.push(newState);
-            }
+                    case 'L':
+                        // Move left
+                        newState = PuzzleState.moveLeft(state);
+                        if (newState != null && !stateSet.contains(newState)) {
+                            stateSet.add(newState);
+                            stateStack.push(newState);
+                        }
+
+                        break;
+
+                    case 'R':
+                        // Move right
+                        newState = PuzzleState.moveRight(state);
+                        if (newState != null && !stateSet.contains(newState)) {
+                            stateSet.add(newState);
+                            stateStack.push(newState);
+                        }
+                        break;
+                    default:System.out.println("Switch Case problem");
+                } //switch
+            }//for
         }
     }
 

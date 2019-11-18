@@ -50,34 +50,49 @@ public class BFSSolver extends PuzzleSolver{
             }
 
             /** CASES */
-            // Move up
-            newState = PuzzleState.moveUp(state);
-            // Checks if exist and not already visited
-            if (newState != null && !stateSet.contains(newState)) {
-                stateSet.add(newState);
-                stateQueue.add(newState);
-            }
+            for(int i=0;i<4;i++) {
+                switch (order[i]){
+                    case 'U':
+                        // Move up
+                        newState = PuzzleState.moveUp(state);
+                        // Checks if exist and not already visited
+                        if (newState != null && !stateSet.contains(newState)) {
+                            stateSet.add(newState);
+                            stateQueue.add(newState);
+                        }
+                        break;
 
-            // Move down
-            newState = PuzzleState.moveDown(state);
-            if (newState != null && !stateSet.contains(newState)) {
-                stateSet.add(newState);
-                stateQueue.add(newState);
-            }
+                    case 'D':
 
-            // Move left
-            newState = PuzzleState.moveLeft(state);
-            if (newState != null && !stateSet.contains(newState)) {
-                stateSet.add(newState);
-                stateQueue.add(newState);
-            }
+                        // Move down
+                        newState = PuzzleState.moveDown(state);
+                        if (newState != null && !stateSet.contains(newState)) {
+                            stateSet.add(newState);
+                            stateQueue.add(newState);
+                        }
+                        break;
 
-            // Move right
-            newState = PuzzleState.moveRight(state);
-            if (newState != null && !stateSet.contains(newState)) {
-                stateSet.add(newState);
-                stateQueue.add(newState);
-            }
+                    case 'L':
+                        // Move left
+                        newState = PuzzleState.moveLeft(state);
+                        if (newState != null && !stateSet.contains(newState)) {
+                            stateSet.add(newState);
+                            stateQueue.add(newState);
+                        }
+
+                        break;
+
+                    case 'R':
+                        // Move right
+                        newState = PuzzleState.moveRight(state);
+                        if (newState != null && !stateSet.contains(newState)) {
+                            stateSet.add(newState);
+                            stateQueue.add(newState);
+                        }
+                        break;
+                    default:System.out.println("Switch Case problem");
+                } //switch
+            }//for
         }
     }
 

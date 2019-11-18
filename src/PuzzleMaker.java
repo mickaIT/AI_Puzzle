@@ -58,6 +58,23 @@ public class PuzzleMaker {
 
             }
 
+            String order = scanner.next();
+            String availableOrders[]={"LRUD", "LURD","LDUR","LUDR","RLUD","RULD","RDUL","RUDL","DLRU","DULR","DLUR","DRUL","ULRD","URLD","UDRL","ULDR"};
+            if(!contains(availableOrders,order)){ throw new UnsupportedOperationException();}
+
+//jeśli inne to sorciak, ale nope
+
+/*            tab[1]="LRUD";tab[2]="LURD";tab[3]="LDUR";tab[4]="LUDR";
+            tab[5]="RLUD";tab[6]="RULD";tab[7]="RDUL";tab[8]="RUDL";
+            tab[9]="DLRU";tab[10]="DULR";tab[11]="DLUR";tab[12]="DRUL";
+            tab[13]="ULRD";tab[14]="URLD";tab[15]="UDRL";tab[16]="ULDR";*/
+
+/*            if(order.equals("RULD")){System.out.println("order.equals(\"RULD\")");}
+            if(order.equals(tab[6])){System.out.println("order.equals(tab[6])");}
+            if(contains(tab,order)){System.out.println("not contain");}*/
+         //   if(!contains(tab,order)){ System.out.println("not contain"); new UnsupportedOperationException();}
+
+
             String fileName = ".\\res\\" + scanner.next() + ".txt"; // reads name of the input file
             Puzzle puzzle = Puzzle.getInstance();   // creates new instance of puzzle board for storing numbers
             // Initializing board from a file
@@ -107,6 +124,7 @@ public class PuzzleMaker {
             // Checks which search algorithm was chosen
             if (type.equals("bfs")) {
                 PuzzleSolver sol = BFSSolver.getInstance();
+                sol.changeOrder(order);
                 System.out.println(sol.solve(puzzle,0));  // solves and prints solution sequence
             } else if (type.equals("dfs")) {
                 PuzzleSolver sol = DFSSolver.getInstance();
@@ -137,7 +155,7 @@ public class PuzzleMaker {
     }
     public static boolean contains(String[] arr, String targetValue) {
         for (String s: arr) {
-            if (s.equals(targetValue))
+            if (targetValue.equals(s))
                 return true;
         }
         return false;
