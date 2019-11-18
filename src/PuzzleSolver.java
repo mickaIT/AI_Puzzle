@@ -11,9 +11,8 @@ public abstract class PuzzleSolver {
     protected long memory;  // stores memory used to solve
     private static final long MEGABYTE = 1024L * 1024L; // used to translate Bytes to MegaBytes
 
-    public abstract String solve(Puzzle puzzle, int heuristicID);   // solves the puzzle and returns sequence of moves
-    public abstract String solve(Puzzle puzzle, int heuristicID, char[] order);
-    // solves the puzzle and returns sequence of moves
+    public  String solve(Puzzle puzzle, int heuristicID){return "Method \"Solve\" from PuzzleSolver not override";};   // solves the puzzle and returns sequence of moves
+    public  String solve(Puzzle puzzle, int heuristicID,char[] order){return "Method \"Solve\" from PuzzleSolver not override";};
     // Function used to change bytes to Megabytes
     private static long bytesToMegabytes(long bytes) {
         return bytes / MEGABYTE;

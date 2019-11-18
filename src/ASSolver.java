@@ -7,7 +7,7 @@ import java.util.*;
  * g(n) - real cost getting to a particular state
  * It takes ID of an heuristic function to use.
 **/
-public class ASSolver extends PuzzleSolver {
+public class ASSolver extends PuzzleSolver{
 
     // For comparing heuristic value; lambda expression
     private Comparator<PuzzleState> statePriorityComparator = Comparator.comparingInt(PuzzleState::getValue);
@@ -62,6 +62,7 @@ public class ASSolver extends PuzzleSolver {
                 break;
             }
 
+            
             /** CASES */
 
             // Move up
@@ -99,7 +100,7 @@ public class ASSolver extends PuzzleSolver {
             }
         }
     }
-
+@Override
     public String solve(Puzzle puzzle, int heuristicID, char[] order) {
 
         long startTime = System.currentTimeMillis();    // starts timer
