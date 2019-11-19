@@ -57,27 +57,41 @@ public class IDFSSolver extends PuzzleSolver{
             return;
 
         PuzzleState newState;   // new puzzle state for moves
-        /**  CASES */
-        // Move up
-        newState = PuzzleState.moveUp(state);
-        // Checks if exist and not already visited
-        Call(newState, depth);
 
-        // Move down
-        newState = PuzzleState.moveDown(state);
-        // Checks if exist and not already visited
-        Call(newState, depth);
+        for(int i=0;i<4;i++) {
+            switch (order[i]){
+                case 'U':
+                    // Move up
+                    newState = PuzzleState.moveUp(state);
+                    // Checks if exist and not already visited
+                    Call(newState, depth);
+                    break;
 
-        // Move left
-        newState = PuzzleState.moveLeft(state);
-        // Checks if exist and not already visited
-        Call(newState, depth);
+                case 'D':
 
-        // Move right
-        newState = PuzzleState.moveRight(state);
-        // Checks if exist and not already visited
-        Call(newState, depth);
+                    // Move down
+                    newState = PuzzleState.moveDown(state);
+                    // Checks if exist and not already visited
+                    Call(newState, depth);
+                    break;
 
+                case 'L':
+                    // Move left
+                    newState = PuzzleState.moveLeft(state);
+                    // Checks if exist and not already visited
+                    Call(newState, depth);
+
+                    break;
+
+                case 'R':
+                    // Move right
+                    newState = PuzzleState.moveRight(state);
+                    // Checks if exist and not already visited
+                    Call(newState, depth);
+                    break;
+                default:System.out.println("Switch Case problem");
+            } //switch
+        }//for
     }
 
     void Call(PuzzleState newState, int depth){

@@ -58,10 +58,6 @@ public class PuzzleMaker {
 
             }
 
-            String order = scanner.next();
-            String availableOrders[]={"LRUD", "LURD","LDUR","LUDR","RLUD","RULD","RDUL","RUDL","DLRU","DULR","DLUR","DRUL","ULRD","URLD","UDRL","ULDR"};
-            if(!contains(availableOrders,order)){ throw new UnsupportedOperationException();}
-
 //jeśli inne to sorciak, ale nope
 
 /*            tab[1]="LRUD";tab[2]="LURD";tab[3]="LDUR";tab[4]="LUDR";
@@ -95,6 +91,18 @@ public class PuzzleMaker {
                 System.out.println("Unable to open file '" + fileName + "'.");
                 throw new UnsupportedOperationException();
             }
+        String order=new String();
+            if (type.equals("bfs") || type.equals("dfs")|| type.equals("idfs")) {
+                String orderTyped = scanner.next();
+                if (orderTyped == null) order = "RULD";
+                order=orderTyped;
+                String availableOrders[] = {"LRUD", "LURD", "LDUR", "LUDR", "RLUD", "RULD", "RDUL", "RUDL", "DLRU", "DULR", "DLUR", "DRUL", "ULRD", "URLD", "UDRL", "ULDR"};
+                if (!contains(availableOrders, orderTyped)) {
+                    System.out.println("Type order");
+                    throw new UnsupportedOperationException();
+                }
+            }
+
             // Reads heuristic function ID (for A* and Best-First Search algorithms
             int heuristicID = 0;
             String heuristicIDs;
@@ -128,12 +136,15 @@ public class PuzzleMaker {
                 System.out.println(sol.solve(puzzle,0));  // solves and prints solution sequence
             } else if (type.equals("dfs")) {
                 PuzzleSolver sol = DFSSolver.getInstance();
+                sol.changeOrder(order);
                 System.out.println(sol.solve(puzzle,0));  // solves and prints solution sequence
             } else if (type.equals("rdfs")) {
                 PuzzleSolver sol = RDFSSolver.getInstance();
+                sol.changeOrder(order);
                 System.out.println(sol.solve(puzzle,0));  // solves and prints solution sequence
             } else if (type.equals("idfs")) {
                 PuzzleSolver sol = IDFSSolver.getInstance();
+                sol.changeOrder(order);
                 System.out.println(sol.solve(puzzle,0));  // solves and prints solution sequence
             } else if (type.equals("ass")) {
                 PuzzleSolver sol = ASSolver.getInstance();

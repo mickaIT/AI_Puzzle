@@ -6,8 +6,8 @@ import java.util.*;
  * h(n) - heuristic value of the state
  * g(n) - real cost getting to a particular state
  * It takes ID of an heuristic function to use.
-**/
-public class ASSolver extends PuzzleSolver{
+ **/
+public class ASSolver extends PuzzleSolver {
 
     // For comparing heuristic value; lambda expression
     private Comparator<PuzzleState> statePriorityComparator = Comparator.comparingInt(PuzzleState::getValue);
@@ -51,70 +51,54 @@ public class ASSolver extends PuzzleSolver{
         PuzzleState newState;   // new puzzle state for moves
 
         while (!stateQueue.isEmpty()){
-             state = stateQueue.poll();
-                    // If goal state
-                    if(state.isGoalState()){
-                        goal = state;
-                        break;
-                    }
+            state = stateQueue.poll();
+            // If goal state
+            if(state.isGoalState()){
+                goal = state;
+                break;
+            }
             // Memory limit check
             if (Runtime.getRuntime().freeMemory() < (.0001) * Runtime.getRuntime().totalMemory()){
                 break;
             }
 
-            
             /** CASES */
-            for(int i=0;i<4;i++) {
-                switch (order[i]){
-                    case 'U':
-                        // Move up
-                        newState = PuzzleState.moveUp(state);
-                        // Checks if exist and not already visited
-                        if (newState != null && !stateSet.contains(newState)) {
-                            newState.setValue(calculateValue(heuristicID, newState));
-                            stateSet.add(newState);
-                            stateQueue.add(newState);
-                        }
-                        break;
+            // Move up
+            newState = PuzzleState.moveUp(state);
+            // Checks if exist and not already visited
+            if (newState != null && !stateSet.contains(newState)) {
+                newState.setValue(calculateValue(heuristicID, newState));
+                stateSet.add(newState);
+                stateQueue.add(newState);
+            }
 
-                    case 'D':
+            // Move down
+            newState = PuzzleState.moveDown(state);
+            if (newState != null && !stateSet.contains(newState)) {
+                newState.setValue(calculateValue(heuristicID, newState));
+                stateSet.add(newState);
+                stateQueue.add(newState);
+            }
 
-                        // Move down
-                        newState = PuzzleState.moveDown(state);
-                        if (newState != null && !stateSet.contains(newState)) {
-                            newState.setValue(calculateValue(heuristicID, newState));
-                            stateSet.add(newState);
-                            stateQueue.add(newState);
-                        }
-                        break;
+            // Move left
+            newState = PuzzleState.moveLeft(state);
+            if (newState != null && !stateSet.contains(newState)) {
+                newState.setValue(calculateValue(heuristicID, newState));
 
-                    case 'L':
-                        // Move left
-                        newState = PuzzleState.moveLeft(state);
-                        if (newState != null && !stateSet.contains(newState)) {
-                            newState.setValue(calculateValue(heuristicID, newState));
+                stateSet.add(newState);
+                stateQueue.add(newState);
+            }
 
-                            stateSet.add(newState);
-                            stateQueue.add(newState);
-                        }
-
-                        break;
-
-                    case 'R':
-                        // Move right
-                        newState = PuzzleState.moveRight(state);
-                        if (newState != null && !stateSet.contains(newState)) {
-                            newState.setValue(calculateValue(heuristicID, newState));
-                            stateSet.add(newState);
-                            stateQueue.add(newState);
-                        }
-                        break;
-                    default:System.out.println("Switch Case problem");
-                } //switch
-            }//for
+            // Move right
+            newState = PuzzleState.moveRight(state);
+            if (newState != null && !stateSet.contains(newState)) {
+                newState.setValue(calculateValue(heuristicID, newState));
+                stateSet.add(newState);
+                stateQueue.add(newState);
+            }
         }
     }
-@Override
+
     public String solve(Puzzle puzzle, int heuristicID) {
 
         long startTime = System.currentTimeMillis();    // starts timer
